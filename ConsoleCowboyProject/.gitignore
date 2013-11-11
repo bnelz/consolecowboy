@@ -2,3 +2,13 @@
 /local.properties
 /.idea/workspace.xml
 .DS_Store
+
+#IntelliJ
+.idea
+*.iml
+*.ipr
+*.iws
+
+*.apk
+*.ap_
+*.dex
