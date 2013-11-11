@@ -1,0 +1,20 @@
+<resources>
+        <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+    <string name="pref_header">Preferences</string>
+
+    <!-- Difficulty strings -->
+    <string name="pref_difficulty">Difficulty</string>
+    <string name="pref_difficulty_description"></string>
+    <string-array name="pref_difficulties">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
+
+    <!-- Other general settings -->
+    <string name="pref_title_username">Username</string>
+    <string name="pref_default_username">John Smith</string>
+    <string name="pref_music">Music</string>
+</resources>
