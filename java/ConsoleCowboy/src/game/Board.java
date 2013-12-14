@@ -181,27 +181,24 @@ public class Board extends JPanel{
     }
     
     public ArrayList<Tile> checkHorizontalMatches(){
-        // Check vertical matches
+        // Check horizontal matches
         ArrayList<Tile> matches = new ArrayList<>();
-        for(int i = 0; i < tiles.length; i++){
-            Tile origin = tiles[i];
-            if(origin.x > 5){
-                break;
-            }else{
+        
+        for(int i=0; i < 57; i+=8) {
+            for(int j=0; j <= 5; j++) {
+                int position = i+j;
+                Tile origin = tiles[position];
+                if(origin.x > 5){
+                    break;
+                }else if(origin.x < 5){
                     String originType = origin.getGamePiece().getPieceType();
-                    Tile a = tiles[i+1];
+                    Tile a = tiles[position+1];
                     String aType = a.getGamePiece().getPieceType();
-                    Tile b = tiles[i+2];
+                    Tile b = tiles[position+2];
                     String bType = b.getGamePiece().getPieceType();
-                    Tile c = tiles[i+3];
+                    Tile c = tiles[position+3];
                     String cType = c.getGamePiece().getPieceType();
-                //Tile d = tiles[i+32];
-                // String dType = d.getGamePiece().getPieceType();
-                /*
-                if(originType.equals(aType) && aType.equals(bType) && bType.equals(cType) && cType.equals(dType)){
-                    Tile[] hack = new Tile[]{origin,a,b,c,d};
-                    removeMultiple(hack);
-                */
+                    
                     if(originType.equals(aType) && aType.equals(bType) && bType.equals(cType)){
                         matches.add(origin);
                         matches.add(a);
@@ -212,12 +209,25 @@ public class Board extends JPanel{
                         matches.add(origin);
                         matches.add(a);
                         matches.add(b);
+                    } 
+                } else{
+                    String originType = origin.getGamePiece().getPieceType();
+                    Tile a = tiles[position+1];
+                    String aType = a.getGamePiece().getPieceType();
+                    Tile b = tiles[position+2];
+                    String bType = b.getGamePiece().getPieceType();
+                    
+                    if(originType.equals(aType) && aType.equals(bType)){
+                        matches.add(origin);
+                        matches.add(a);
+                        matches.add(b);
                     }else{
 
                     }
-                    }
-                
+                }
             }
+        }
+        
         return matches; 
     }
 
