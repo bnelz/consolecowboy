@@ -37,16 +37,38 @@ public class Board extends JPanel{
     }
 
     private void populateBoard() {
-        
-        for(int i = 0; i < tiles.length; i++){
-            try { 
-                tiles[i] = new Tile(i%width,i/height,new GamePiece(), this);
+
+        for (int i = 0; i < tiles.length; i++) {
+            try {
+                tiles[i] = new Tile(i % width, i / height, new GamePiece(), this);
                 tiles[i].setBackground(Color.BLACK);
             } catch (IOException ex) {
                 Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+        boolean hasMatches = true;
+        while (hasMatches) {
+            hasMatches = detectMatches();
+            populateEmptyTiles();
+        }
+
+    }
+
+
+    private void populateEmptyTiles() {
+        for (int i = 0; i < tiles.length; i++) {
+            if (tiles[i].getGamePiece().getPieceType().equals("blank")) {
+                try {
+                    tiles[i] = new Tile(i % width, i / height, new GamePiece(), this);
+                    tiles[i].setBackground(Color.BLACK);
+                } catch (IOException ex) {
+                    Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{
+                
+            }
+
+        }
     }
     public void remove(int x, int y){
         tiles[x * width + y].setGamePiece(null);
@@ -122,12 +144,23 @@ public class Board extends JPanel{
         tiles[pos].setBackground(Color.BLACK);
     }
     
-    public void detectMatches(){
+    public boolean detectMatches() {
+        boolean hasMatches;
         ArrayList<Tile> matches = new ArrayList<>();
         matches.addAll(checkVerticalMatches());
         matches.addAll(checkHorizontalMatches());
-        removeMultiple(matches);
+        if (matches.isEmpty()) {
+            hasMatches = false;
+            return hasMatches;
+        } else {
+            hasMatches = true;
+            removeMultiple(matches);
+            return hasMatches;
+        }
+
     }
+    
+   
     
     public ArrayList<Tile> checkVerticalMatches(){
         // Check vertical matches
