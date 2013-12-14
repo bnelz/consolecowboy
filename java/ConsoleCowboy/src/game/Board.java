@@ -56,7 +56,7 @@ public class Board extends JPanel{
             for(int i = 0; i < tilesToRemove.size(); i++){
                 int x = tilesToRemove.get(i).x;
                 int y = tilesToRemove.get(i).y;
-                tiles[x * width + y].setGamePiece(new GamePiece(null, "blank"));
+                tiles[y * width + x].setGamePiece(new GamePiece(null, "blank"));
             }
         }
     }
@@ -86,7 +86,7 @@ public class Board extends JPanel{
             tileSelected = false;
             tiles[spos].setIsSelected(false);
             tiles[tpos].setIsSelected(false);
-            //detectMatches();
+            detectMatches();
             repaint();
             
         }else{
@@ -121,14 +121,14 @@ public class Board extends JPanel{
         selectedTile = null;
         tiles[pos].setBackground(Color.BLACK);
     }
-    /*
+    
     public void detectMatches(){
         ArrayList<Tile> matches = new ArrayList<>();
         matches.addAll(checkVerticalMatches());
         matches.addAll(checkHorizontalMatches());
         removeMultiple(matches);
     }
-    */
+    
     public ArrayList<Tile> checkVerticalMatches(){
         // Check vertical matches
         ArrayList<Tile> matches = new ArrayList<>();
@@ -137,37 +137,47 @@ public class Board extends JPanel{
             if(origin.y > 5){
                 break;
             }else{
-                String originType = origin.getGamePiece().getPieceType();
-                Tile a = tiles[i+8];
-                String aType = a.getGamePiece().getPieceType();
-                Tile b = tiles[i+16];
-                String bType = b.getGamePiece().getPieceType();
-                Tile c = tiles[i+24];
-                String cType = c.getGamePiece().getPieceType();
-                //Tile d = tiles[i+32];
-                // String dType = d.getGamePiece().getPieceType();
-                /*
-                if(originType.equals(aType) && aType.equals(bType) && bType.equals(cType) && cType.equals(dType)){
-                    Tile[] hack = new Tile[]{origin,a,b,c,d};
-                    removeMultiple(hack);
-                */
-                if(originType.equals(aType) && aType.equals(bType) && bType.equals(cType)){
-                    matches.add(origin);
-                    matches.add(a);
-                    matches.add(b);
-                    matches.add(c);
-                   
-                }else if(originType.equals(aType) && aType.equals(bType)){
-                    matches.add(origin);
-                    matches.add(a);
-                    matches.add(b);
+                if(origin.y < 5){
+                    String originType = origin.getGamePiece().getPieceType();
+                    Tile a = tiles[i+8];
+                    String aType = a.getGamePiece().getPieceType();
+                    Tile b = tiles[i+16];
+                    String bType = b.getGamePiece().getPieceType();
+                    Tile c = tiles[i+24];
+                   String cType = c.getGamePiece().getPieceType();
+                    if(originType.equals(aType) && aType.equals(bType) && bType.equals(cType)){
+                        matches.add(origin);
+                        matches.add(a);
+                        matches.add(b);
+                        matches.add(c);
+
+                    }else if(originType.equals(aType) && aType.equals(bType)){
+                        matches.add(origin);
+                        matches.add(a);
+                        matches.add(b);
+                    }else{
+
+                    }
                 }else{
+                    String originType = origin.getGamePiece().getPieceType();
+                    Tile a = tiles[i+8];
+                    String aType = a.getGamePiece().getPieceType();
+                    Tile b = tiles[i+16];
+                    String bType = b.getGamePiece().getPieceType();
                     
+                    if(originType.equals(aType) && aType.equals(bType)){
+                        matches.add(origin);
+                        matches.add(a);
+                        matches.add(b);
+                    }else{
+
+                    }
                 }
+                
             }
             
         }
-        return matches;
+        return matches; 
     }
     
     public ArrayList<Tile> checkHorizontalMatches(){
@@ -178,13 +188,13 @@ public class Board extends JPanel{
             if(origin.x > 5){
                 break;
             }else{
-                String originType = origin.getGamePiece().getPieceType();
-                Tile a = tiles[i+1];
-                String aType = a.getGamePiece().getPieceType();
-                Tile b = tiles[i+2];
-                String bType = b.getGamePiece().getPieceType();
-                Tile c = tiles[i+3];
-                String cType = c.getGamePiece().getPieceType();
+                    String originType = origin.getGamePiece().getPieceType();
+                    Tile a = tiles[i+1];
+                    String aType = a.getGamePiece().getPieceType();
+                    Tile b = tiles[i+2];
+                    String bType = b.getGamePiece().getPieceType();
+                    Tile c = tiles[i+3];
+                    String cType = c.getGamePiece().getPieceType();
                 //Tile d = tiles[i+32];
                 // String dType = d.getGamePiece().getPieceType();
                 /*
@@ -192,23 +202,23 @@ public class Board extends JPanel{
                     Tile[] hack = new Tile[]{origin,a,b,c,d};
                     removeMultiple(hack);
                 */
-                if(originType.equals(aType) && aType.equals(bType) && bType.equals(cType)){
-                    matches.add(origin);
-                    matches.add(a);
-                    matches.add(b);
-                    matches.add(c);
-                   
-                }else if(originType.equals(aType) && aType.equals(bType)){
-                    matches.add(origin);
-                    matches.add(a);
-                    matches.add(b);
-                }else{
-                    
-                }
+                    if(originType.equals(aType) && aType.equals(bType) && bType.equals(cType)){
+                        matches.add(origin);
+                        matches.add(a);
+                        matches.add(b);
+                        matches.add(c);
+
+                    }else if(originType.equals(aType) && aType.equals(bType)){
+                        matches.add(origin);
+                        matches.add(a);
+                        matches.add(b);
+                    }else{
+
+                    }
+                    }
+                
             }
-            
-        }
-        return matches;
+        return matches; 
     }
 
     public boolean isTileSelected() {
