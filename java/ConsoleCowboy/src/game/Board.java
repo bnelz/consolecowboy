@@ -134,7 +134,7 @@ public class Board extends JPanel{
         ArrayList<Tile> matches = new ArrayList<>();
         for(int i = 0; i < tiles.length; i++){
             Tile origin = tiles[i];
-            if(origin.y == 5){
+            if(origin.y > 5){
                 break;
             }else{
                 String originType = origin.getGamePiece().getPieceType();
@@ -175,7 +175,7 @@ public class Board extends JPanel{
         ArrayList<Tile> matches = new ArrayList<>();
         for(int i = 0; i < tiles.length; i++){
             Tile origin = tiles[i];
-            if(origin.x == 5){
+            if(origin.x > 5){
                 break;
             }else{
                 String originType = origin.getGamePiece().getPieceType();

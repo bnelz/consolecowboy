@@ -17,6 +17,10 @@ import javax.imageio.ImageIO;
  */
 public class ImageController {
     
+    /*
+    @TODO
+    Fix this so it works regardless of locations
+    */
     public BufferedImage cmd() throws IOException{
         BufferedImage img = ImageIO.read(new File("C:\\Users\\Brandon\\Documents\\NetBeansProjects\\ConsoleCowboy\\src\\assets\\cmd50.png"));
         return img;
