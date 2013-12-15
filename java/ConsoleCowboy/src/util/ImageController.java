@@ -22,7 +22,7 @@ public class ImageController {
     public BufferedImage cmd() throws IOException {
         String fullDirectory = directory + "\\src\\assets\\cmd50.png";
         if (OS.startsWith("mac")) {
-            fullDirectory = directory + "//src//assets//cmd50.png";
+            fullDirectory = directory + "/src/assets/cmd50.png";
         }
         BufferedImage img = ImageIO.read(new File(fullDirectory));
         return img;
@@ -31,7 +31,7 @@ public class ImageController {
     public BufferedImage netscape() throws IOException {
         String fullDirectory = directory + "\\src\\assets\\netscape50.png";
         if (OS.startsWith("mac")) {
-            fullDirectory = directory + "//src//assets//netscape50.png";
+            fullDirectory = directory + "/src/assets/netscape50.png";
         }
         BufferedImage img = ImageIO.read(new File(fullDirectory));
         return img;
@@ -40,7 +40,7 @@ public class ImageController {
     public BufferedImage java() throws IOException {
         String fullDirectory = directory + "\\src\\assets\\java50.png";
         if (OS.startsWith("mac")) {
-            fullDirectory = directory + "//src//assets//java50.png";
+            fullDirectory = directory + "/src/assets/java50.png";
         }
         BufferedImage img = ImageIO.read(new File(fullDirectory));
         return img;
@@ -49,7 +49,7 @@ public class ImageController {
     public BufferedImage aol() throws IOException {
         String fullDirectory = directory + "\\src\\assets\\aol50.png";
         if (OS.startsWith("mac")) {
-            fullDirectory = directory + "//src//assets//aol50.png";
+            fullDirectory = directory + "/src/assets/aol50.png";
         }
         BufferedImage img = ImageIO.read(new File(fullDirectory));
         return img;
@@ -58,7 +58,7 @@ public class ImageController {
     public BufferedImage floppy() throws IOException {
         String fullDirectory = directory + "\\src\\assets\\floppy50.png";
         if (OS.startsWith("mac")) {
-            fullDirectory = directory + "//src//assets//floppy50.png";
+            fullDirectory = directory + "/src/assets/floppy50.png";
         }
         BufferedImage img = ImageIO.read(new File(fullDirectory));
         return img;
@@ -67,7 +67,7 @@ public class ImageController {
     public BufferedImage cd() throws IOException {
         String fullDirectory = directory + "\\src\\assets\\cd50.png";
         if (OS.startsWith("mac")) {
-            fullDirectory = directory + "//src//assets//cd50.png";
+            fullDirectory = directory + "/src/assets/cd50.png";
         }
         BufferedImage img = ImageIO.read(new File(fullDirectory));
         return img;

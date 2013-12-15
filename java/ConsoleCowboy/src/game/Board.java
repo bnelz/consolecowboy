@@ -61,10 +61,10 @@ public class Board extends JPanel {
                 } catch (IOException ex) {
                     Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } else {
-
             }
-
+        }
+        if(detectMatches()) {
+            populateEmptyTiles();
         }
     }
 
@@ -189,7 +189,6 @@ public class Board extends JPanel {
             populateEmptyTiles();
             return hasMatches;
         }
-
     }
 
     public ArrayList<Tile> checkVerticalMatches() {
