@@ -27,6 +27,10 @@ public class GamePiece {
         this.image = piece.image;
         this.pieceType = piece.pieceType;
     }
+    /**
+     * Constructs a GamePiece object with a random image and type representation
+     * @throws IOException 
+     */
     public GamePiece() throws IOException {
         ImageController ic = new ImageController();
         int rand = ((int)(Math.random() * 6));

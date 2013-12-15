@@ -14,7 +14,8 @@ import javax.swing.ImageIcon;
  *
  * @author Brandon
  */
-public class Tile extends javax.swing.JButton implements MouseListener {
+public class Tile extends javax.swing.JButton implements MouseListener{
+
 
     public int x;
     public int y;
@@ -127,7 +128,11 @@ public class Tile extends javax.swing.JButton implements MouseListener {
     public void mouseClicked(MouseEvent e) {
 
     }
-
+    /**
+     * Listens for click events on the tile object and sets focus or swaps
+     * accordingly
+     * @param e 
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         if (board.tileSelected && isSelected) {
