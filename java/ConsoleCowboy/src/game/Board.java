@@ -13,8 +13,10 @@ import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
- *
- * @author Brandon
+ * Manages a matrix of tile objects that acts as the game board
+ * Handles board setup and game logic
+ * 
+ * @author 
  */
 public class Board extends JPanel {
 

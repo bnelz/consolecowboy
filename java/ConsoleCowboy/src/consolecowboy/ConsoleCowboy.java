@@ -15,8 +15,8 @@ import javax.swing.JFrame;
 
 
 /**
- *
- * @author Brandon
+ * The main game frame that displays the match 3 board
+ * @author 
  */
 public class ConsoleCowboy extends JFrame implements ActionListener{
 

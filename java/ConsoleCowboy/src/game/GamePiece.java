@@ -10,7 +10,7 @@ import java.io.IOException;
 import util.ImageController;
 
 /**
- *
+ * Model of a game piece
  * @author Brandon
  */
 public class GamePiece {

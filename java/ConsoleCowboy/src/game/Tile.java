@@ -11,8 +11,8 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 
 /**
- *
- * @author Brandon
+ * Container for game piece objects 
+ * @author
  */
 public class Tile extends javax.swing.JButton implements MouseListener{
 
