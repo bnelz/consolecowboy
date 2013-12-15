@@ -8,7 +8,7 @@ package game;
 import consolecowboy.ConsoleCowboy;
 /**
  *
- * @author Tim_2
+ * @author
  */
 public class mainMenu extends javax.swing.JFrame {
 
