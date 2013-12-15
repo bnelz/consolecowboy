@@ -8,6 +8,7 @@ package consolecowboy;
 
 import game.Board;
 import game.Tile;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,6 +27,7 @@ public class ConsoleCowboy extends JFrame implements ActionListener{
     private Board board;
     
     public ConsoleCowboy(){
+        setPreferredSize(new Dimension(500,500));
         board = new Board();
         init();
     }
