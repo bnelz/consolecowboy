@@ -48,7 +48,6 @@ public class Board extends JPanel {
         boolean hasMatches = true;
         while (hasMatches) {
             hasMatches = detectMatches();
-            populateEmptyTiles();
         }
         isSetup = true;
     }
@@ -57,7 +56,7 @@ public class Board extends JPanel {
         for (int i = 0; i < tiles.length; i++) {
             if (tiles[i].getGamePiece().getPieceType().equals("blank")) {
                 try {
-                    tiles[i] = new Tile(i % width, i / height, new GamePiece(), this);
+                    tiles[i].setGamePiece(new GamePiece());
                     tiles[i].setBackground(Color.BLACK);
                 } catch (IOException ex) {
                     Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
@@ -94,6 +93,8 @@ public class Board extends JPanel {
                 if(!(tiles[i].getGamePiece().getPieceType().equals("blank") &&
                         tiles[i-8].getGamePiece().getPieceType().equals("blank"))){
                     swap(tiles[i], tiles[i - 8]);
+                    repaint();
+                    
                     tilesDropped = true;
                 }
                 
@@ -150,7 +151,7 @@ public class Board extends JPanel {
             return true;
         } else if ((ty == oy - 1 || ty == oy + 1) && ox == tx) { // Check up and down
             return true;
-        } else if (origin.getGamePiece().equals("blank") && target.getGamePiece().equals("blank")) { // Invalid swap
+        } else if (origin.getGamePiece().getPieceType().equals("blank") && target.getGamePiece().getPieceType().equals("blank")) { // Invalid swap
             return false;
         } else {
             return false;
@@ -180,10 +181,12 @@ public class Board extends JPanel {
         } else {
             hasMatches = true;
             removeMultiple(matches);
+            
             if (isSetup) {
                 dropTiles(0);
+                populateEmptyTiles();
             }
-
+            populateEmptyTiles();
             return hasMatches;
         }
 
