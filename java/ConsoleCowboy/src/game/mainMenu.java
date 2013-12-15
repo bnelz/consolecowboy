@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package game;
+
 import consolecowboy.ConsoleCowboy;
+
 /**
  *
  * @author
@@ -102,9 +103,9 @@ public class mainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       this.setVisible(false);
-       ConsoleCowboy session = new ConsoleCowboy();
-       
+        this.setVisible(false);
+        ConsoleCowboy session = new ConsoleCowboy();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
