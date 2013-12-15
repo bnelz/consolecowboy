@@ -97,7 +97,6 @@ public class Board extends JPanel {
                     
                     tilesDropped = true;
                 }
-                
             }
         }
         if (tilesDropped) {
@@ -133,10 +132,7 @@ public class Board extends JPanel {
             detectMatches();
             repaint();
 
-        } else {
-
         }
-
     }
 
     public boolean validSwap(Tile origin, Tile target) {
@@ -254,9 +250,7 @@ public class Board extends JPanel {
             for (int j = 0; j <= 5; j++) {
                 int position = i + j;
                 Tile origin = tiles[position];
-                if (origin.getGamePiece().getPieceType().equals("blank")) {
-
-                } else {
+                if (!(origin.getGamePiece().getPieceType().equals("blank"))) {
                     if (origin.x > 5) {
                         break;
                     } else if (origin.x < 5) {
@@ -290,12 +284,9 @@ public class Board extends JPanel {
                             matches.add(origin);
                             matches.add(a);
                             matches.add(b);
-                        } else {
-
                         }
                     }
                 }
-
             }
         }
 
