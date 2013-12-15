@@ -108,10 +108,8 @@ public class Board extends JPanel {
      * 
      * @param count Tracks the recursion
      */
-    private void dropTiles(int count) {
+    private void dropTiles() {
         boolean tilesDropped = false;
-        count++;
-        System.out.println(count);
         for (int i = tiles.length - 1; i >= 8; i--) {
             Tile tileToCheck = tiles[i];
             
@@ -126,7 +124,7 @@ public class Board extends JPanel {
             }
         }
         if (tilesDropped) {
-            dropTiles(count);
+            dropTiles();
         }
     }
     /**
@@ -227,7 +225,7 @@ public class Board extends JPanel {
             removeMultiple(matches);
             
             if (isSetup) {
-                dropTiles(0);
+                dropTiles();
                 populateEmptyTiles();
             }
             populateEmptyTiles();
