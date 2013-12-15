@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package game;
 
 import java.awt.Color;
@@ -18,20 +17,20 @@ import javax.swing.JPanel;
  *
  * @author Brandon
  */
-public class Board extends JPanel{
-    
+public class Board extends JPanel {
+
     // Always play with an 8x8 board
     public final int width = 8;
     public final int height = 8;
     private Tile[] tiles;
-    
-    
+    private boolean isSetup = false;
+
     // This is a board state to track whether the user has a tile selected
     public boolean tileSelected;
     private Tile selectedTile;
-            
+
     public Board() {
-        this.tiles = new Tile[width*height];
+        this.tiles = new Tile[width * height];
         this.tileSelected = false;
         populateBoard();
     }
@@ -51,9 +50,8 @@ public class Board extends JPanel{
             hasMatches = detectMatches();
             populateEmptyTiles();
         }
-
+        isSetup = true;
     }
-
 
     private void populateEmptyTiles() {
         for (int i = 0; i < tiles.length; i++) {
@@ -64,32 +62,55 @@ public class Board extends JPanel{
                 } catch (IOException ex) {
                     Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }else{
-                
+            } else {
+
             }
 
         }
     }
-    public void remove(int x, int y){
+
+    public void remove(int x, int y) {
         tiles[x * width + y].setGamePiece(null);
     }
-    public void removeMultiple(ArrayList<Tile> tilesToRemove){
-        if(!tilesToRemove.isEmpty()){
-            for(int i = 0; i < tilesToRemove.size(); i++){
+
+    public void removeMultiple(ArrayList<Tile> tilesToRemove) {
+        if (!tilesToRemove.isEmpty()) {
+            for (int i = 0; i < tilesToRemove.size(); i++) {
                 int x = tilesToRemove.get(i).x;
                 int y = tilesToRemove.get(i).y;
                 tiles[y * width + x].setGamePiece(new GamePiece(null, "blank"));
             }
         }
     }
-    
-    public void swap(Tile selectedPiece, Tile targetPiece){
-        
+
+    private void dropTiles(int count) {
+        boolean tilesDropped = false;
+        count++;
+        System.out.println(count);
+        for (int i = tiles.length - 1; i >= 8; i--) {
+            Tile tileToCheck = tiles[i];
+            
+            if (tileToCheck.getGamePiece().getPieceType().equals("blank")) {
+                if(!(tiles[i].getGamePiece().getPieceType().equals("blank") &&
+                        tiles[i-8].getGamePiece().getPieceType().equals("blank"))){
+                    swap(tiles[i], tiles[i - 8]);
+                    tilesDropped = true;
+                }
+                
+            }
+        }
+        if (tilesDropped) {
+            dropTiles(count);
+        }
+    }
+
+    public void swap(Tile selectedPiece, Tile targetPiece) {
+
         /*
-        @TODO
-        Clean up this method, the code here is disgusting and a total hack
-        */
-        if(validSwap(selectedPiece, targetPiece)){
+         @TODO
+         Clean up this method, the code here is disgusting and a total hack
+         */
+        if (validSwap(selectedPiece, targetPiece)) {
             int sx = selectedPiece.x;
             int sy = selectedPiece.y;
             int spos = sy * width + sx;
@@ -103,47 +124,51 @@ public class Board extends JPanel{
             tiles[spos].setGamePiece(tpiece);
             tiles[tpos].setGamePiece(spiece);
 
-            deSelectTile(sx,sy);
+            deSelectTile(sx, sy);
             deSelectTile(tx, ty);
             tileSelected = false;
             tiles[spos].setIsSelected(false);
             tiles[tpos].setIsSelected(false);
             detectMatches();
             repaint();
-            
-        }else{
-            
+
+        } else {
+
         }
-        
-        
+
     }
-    public boolean validSwap(Tile origin, Tile target){
+
+    public boolean validSwap(Tile origin, Tile target) {
         int ox = origin.x;
         int oy = origin.y;
-        
+
         int tx = target.x;
         int ty = target.y;
-        
+
         //Check adjacency here
-        if((tx == ox-1 || tx == ox + 1) && oy == ty){ // Check left and right
+        if ((tx == ox - 1 || tx == ox + 1) && oy == ty) { // Check left and right
             return true;
-        }else if((ty == oy-1 || ty == oy+1) && ox == tx){ // Check up and down
+        } else if ((ty == oy - 1 || ty == oy + 1) && ox == tx) { // Check up and down
             return true;
-        }else{ // Invalid swap
+        } else if (origin.getGamePiece().equals("blank") && target.getGamePiece().equals("blank")) { // Invalid swap
+            return false;
+        } else {
             return false;
         }
     }
-    public void selectTile(int x, int y){
+
+    public void selectTile(int x, int y) {
         int pos = y * width + x;
         selectedTile = tiles[pos];
         tiles[pos].setBackground(Color.GREEN);
     }
-    public void deSelectTile(int x, int y){
+
+    public void deSelectTile(int x, int y) {
         int pos = y * width + x;
         selectedTile = null;
         tiles[pos].setBackground(Color.BLACK);
     }
-    
+
     public boolean detectMatches() {
         boolean hasMatches;
         ArrayList<Tile> matches = new ArrayList<>();
@@ -155,113 +180,124 @@ public class Board extends JPanel{
         } else {
             hasMatches = true;
             removeMultiple(matches);
+            if (isSetup) {
+                dropTiles(0);
+            }
+
             return hasMatches;
         }
 
     }
-    
-   
-    
-    public ArrayList<Tile> checkVerticalMatches(){
+
+    public ArrayList<Tile> checkVerticalMatches() {
         // Check vertical matches
         ArrayList<Tile> matches = new ArrayList<>();
-        for(int i = 0; i < tiles.length; i++){
+        for (int i = 0; i < tiles.length; i++) {
             Tile origin = tiles[i];
-            if(origin.y > 5){
-                break;
-            }else{
-                if(origin.y < 5){
-                    String originType = origin.getGamePiece().getPieceType();
-                    Tile a = tiles[i+8];
-                    String aType = a.getGamePiece().getPieceType();
-                    Tile b = tiles[i+16];
-                    String bType = b.getGamePiece().getPieceType();
-                    Tile c = tiles[i+24];
-                   String cType = c.getGamePiece().getPieceType();
-                    if(originType.equals(aType) && aType.equals(bType) && bType.equals(cType)){
-                        matches.add(origin);
-                        matches.add(a);
-                        matches.add(b);
-                        matches.add(c);
+            if (origin.getGamePiece().getPieceType().equals("blank")) {
 
-                    }else if(originType.equals(aType) && aType.equals(bType)){
-                        matches.add(origin);
-                        matches.add(a);
-                        matches.add(b);
-                    }else{
+            } else {
+                if (origin.y > 5) {
+                    break;
+                } else {
+                    if (origin.y < 5) {
+                        String originType = origin.getGamePiece().getPieceType();
+                        Tile a = tiles[i + 8];
+                        String aType = a.getGamePiece().getPieceType();
+                        Tile b = tiles[i + 16];
+                        String bType = b.getGamePiece().getPieceType();
+                        Tile c = tiles[i + 24];
+                        String cType = c.getGamePiece().getPieceType();
+                        if (originType.equals(aType) && aType.equals(bType) && bType.equals(cType)) {
+                            matches.add(origin);
+                            matches.add(a);
+                            matches.add(b);
+                            matches.add(c);
 
+                        } else if (originType.equals(aType) && aType.equals(bType)) {
+                            matches.add(origin);
+                            matches.add(a);
+                            matches.add(b);
+                        } else {
+
+                        }
+                    } else {
+                        String originType = origin.getGamePiece().getPieceType();
+                        Tile a = tiles[i + 8];
+                        String aType = a.getGamePiece().getPieceType();
+                        Tile b = tiles[i + 16];
+                        String bType = b.getGamePiece().getPieceType();
+
+                        if (originType.equals(aType) && aType.equals(bType)) {
+                            matches.add(origin);
+                            matches.add(a);
+                            matches.add(b);
+                        } else {
+
+                        }
                     }
-                }else{
-                    String originType = origin.getGamePiece().getPieceType();
-                    Tile a = tiles[i+8];
-                    String aType = a.getGamePiece().getPieceType();
-                    Tile b = tiles[i+16];
-                    String bType = b.getGamePiece().getPieceType();
-                    
-                    if(originType.equals(aType) && aType.equals(bType)){
-                        matches.add(origin);
-                        matches.add(a);
-                        matches.add(b);
-                    }else{
 
-                    }
                 }
-                
             }
-            
+
         }
-        return matches; 
+        return matches;
     }
-    
-    public ArrayList<Tile> checkHorizontalMatches(){
+
+    public ArrayList<Tile> checkHorizontalMatches() {
         // Check horizontal matches
         ArrayList<Tile> matches = new ArrayList<>();
-        
-        for(int i=0; i < 57; i+=8) {
-            for(int j=0; j <= 5; j++) {
-                int position = i+j;
+
+        for (int i = 0; i < 57; i += 8) {
+            for (int j = 0; j <= 5; j++) {
+                int position = i + j;
                 Tile origin = tiles[position];
-                if(origin.x > 5){
-                    break;
-                }else if(origin.x < 5){
-                    String originType = origin.getGamePiece().getPieceType();
-                    Tile a = tiles[position+1];
-                    String aType = a.getGamePiece().getPieceType();
-                    Tile b = tiles[position+2];
-                    String bType = b.getGamePiece().getPieceType();
-                    Tile c = tiles[position+3];
-                    String cType = c.getGamePiece().getPieceType();
-                    
-                    if(originType.equals(aType) && aType.equals(bType) && bType.equals(cType)){
-                        matches.add(origin);
-                        matches.add(a);
-                        matches.add(b);
-                        matches.add(c);
+                if (origin.getGamePiece().getPieceType().equals("blank")) {
 
-                    }else if(originType.equals(aType) && aType.equals(bType)){
-                        matches.add(origin);
-                        matches.add(a);
-                        matches.add(b);
-                    } 
-                } else{
-                    String originType = origin.getGamePiece().getPieceType();
-                    Tile a = tiles[position+1];
-                    String aType = a.getGamePiece().getPieceType();
-                    Tile b = tiles[position+2];
-                    String bType = b.getGamePiece().getPieceType();
-                    
-                    if(originType.equals(aType) && aType.equals(bType)){
-                        matches.add(origin);
-                        matches.add(a);
-                        matches.add(b);
-                    }else{
+                } else {
+                    if (origin.x > 5) {
+                        break;
+                    } else if (origin.x < 5) {
+                        String originType = origin.getGamePiece().getPieceType();
+                        Tile a = tiles[position + 1];
+                        String aType = a.getGamePiece().getPieceType();
+                        Tile b = tiles[position + 2];
+                        String bType = b.getGamePiece().getPieceType();
+                        Tile c = tiles[position + 3];
+                        String cType = c.getGamePiece().getPieceType();
 
+                        if (originType.equals(aType) && aType.equals(bType) && bType.equals(cType)) {
+                            matches.add(origin);
+                            matches.add(a);
+                            matches.add(b);
+                            matches.add(c);
+
+                        } else if (originType.equals(aType) && aType.equals(bType)) {
+                            matches.add(origin);
+                            matches.add(a);
+                            matches.add(b);
+                        }
+                    } else {
+                        String originType = origin.getGamePiece().getPieceType();
+                        Tile a = tiles[position + 1];
+                        String aType = a.getGamePiece().getPieceType();
+                        Tile b = tiles[position + 2];
+                        String bType = b.getGamePiece().getPieceType();
+
+                        if (originType.equals(aType) && aType.equals(bType)) {
+                            matches.add(origin);
+                            matches.add(a);
+                            matches.add(b);
+                        } else {
+
+                        }
                     }
                 }
+
             }
         }
-        
-        return matches; 
+
+        return matches;
     }
 
     public boolean isTileSelected() {
@@ -271,10 +307,12 @@ public class Board extends JPanel{
     public void setTileSelected(boolean tileSelected) {
         this.tileSelected = tileSelected;
     }
-    public Tile getTileAt(int x, int y){
+
+    public Tile getTileAt(int x, int y) {
         Tile tile = tiles[y * width + x];
         return tile;
     }
+
     public int getWidth() {
         return width;
     }
@@ -295,8 +333,4 @@ public class Board extends JPanel{
         return tiles;
     }
 
-    
-    
-    
-            
 }
