@@ -5,20 +5,22 @@
  */
 package game;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import util.ImageController;
 
 /**
  * Model of a game piece
+ *
  * @author Brandon
  */
 public class GamePiece {
 
-    private BufferedImage image;
+    private Image image;
     private String pieceType;
 
-    public GamePiece(BufferedImage image, String pieceType) {
+    public GamePiece(Image image, String pieceType) {
         this.image = image;
         this.pieceType = pieceType;
     }
@@ -68,7 +70,7 @@ public class GamePiece {
         }
     }
 
-    public BufferedImage getImage() {
+    public Image getImage() {
         return image;
     }
 

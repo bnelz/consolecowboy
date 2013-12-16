@@ -12,7 +12,7 @@ package views;
 public class MenuUI extends javax.swing.JFrame {
 
     /**
-     * Creates new form mainMenu
+     * Creates new form MenuUI
      */
     public MenuUI() {
         initComponents();

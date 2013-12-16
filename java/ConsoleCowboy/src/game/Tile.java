@@ -11,11 +11,11 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 
 /**
- * Container for game piece objects 
+ * Container for game piece objects
+ *
  * @author
  */
-public class Tile extends javax.swing.JButton implements MouseListener{
-
+public class Tile extends javax.swing.JButton implements MouseListener {
 
     public int x;
     public int y;
@@ -73,10 +73,12 @@ public class Tile extends javax.swing.JButton implements MouseListener{
     public void mouseClicked(MouseEvent e) {
 
     }
+
     /**
      * Listens for click events on the tile object and sets focus or swaps
      * accordingly
-     * @param e 
+     *
+     * @param e
      */
     @Override
     public void mousePressed(MouseEvent e) {

@@ -5,81 +5,63 @@
  */
 package util;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.IOException;
-import javax.imageio.ImageIO;
+import java.net.URL;
 
 /**
  * Manages image IO on the user machine based on OS type
- * @author 
+ *
+ * @author
  */
 public class ImageController {
 
     String directory = System.getProperty("user.dir");
     String OS = System.getProperty("os.name").toLowerCase();
-    
-    public BufferedImage background() throws IOException {
-        
+
+    public Image background() throws IOException {
+
         String fullDirectory = directory + "\\src\\assets\\background.png";
-        if (OS.startsWith("mac")) {
-            fullDirectory = directory + "/src/assets/background.png";
-        }
-        BufferedImage img = ImageIO.read(new File(fullDirectory));
+        URL imageURL = getClass().getResource("/assets/background.png");
+        Image img = Toolkit.getDefaultToolkit().getImage(imageURL);
         return img;
     }
 
-    public BufferedImage cmd() throws IOException {
-        String fullDirectory = directory + "\\src\\assets\\cmd50.png";
-        if (OS.startsWith("mac")) {
-            fullDirectory = directory + "/src/assets/cmd50.png";
-        }
-        BufferedImage img = ImageIO.read(new File(fullDirectory));
+    public Image cmd() throws IOException {
+        URL imageURL = getClass().getResource("/assets/cmd50.png");
+        Image img = Toolkit.getDefaultToolkit().getImage(imageURL);
         return img;
     }
 
-    public BufferedImage netscape() throws IOException {
-        String fullDirectory = directory + "\\src\\assets\\netscape50.png";
-        if (OS.startsWith("mac")) {
-            fullDirectory = directory + "/src/assets/netscape50.png";
-        }
-        BufferedImage img = ImageIO.read(new File(fullDirectory));
+    public Image netscape() throws IOException {
+        URL imageURL = getClass().getResource("/assets/netscape50.png");
+        Image img = Toolkit.getDefaultToolkit().getImage(imageURL);
         return img;
     }
 
-    public BufferedImage java() throws IOException {
-        String fullDirectory = directory + "\\src\\assets\\java50.png";
-        if (OS.startsWith("mac")) {
-            fullDirectory = directory + "/src/assets/java50.png";
-        }
-        BufferedImage img = ImageIO.read(new File(fullDirectory));
+    public Image java() throws IOException {
+        URL imageURL = getClass().getResource("/assets/java50.png");
+        Image img = Toolkit.getDefaultToolkit().getImage(imageURL);
         return img;
     }
 
-    public BufferedImage aol() throws IOException {
-        String fullDirectory = directory + "\\src\\assets\\aol50.png";
-        if (OS.startsWith("mac")) {
-            fullDirectory = directory + "/src/assets/aol50.png";
-        }
-        BufferedImage img = ImageIO.read(new File(fullDirectory));
+    public Image aol() throws IOException {
+        URL imageURL = getClass().getResource("/assets/aol50.png");
+        Image img = Toolkit.getDefaultToolkit().getImage(imageURL);
         return img;
     }
 
-    public BufferedImage floppy() throws IOException {
-        String fullDirectory = directory + "\\src\\assets\\floppy50.png";
-        if (OS.startsWith("mac")) {
-            fullDirectory = directory + "/src/assets/floppy50.png";
-        }
-        BufferedImage img = ImageIO.read(new File(fullDirectory));
+    public Image floppy() throws IOException {
+        URL imageURL = getClass().getResource("/assets/floppy50.png");
+        Image img = Toolkit.getDefaultToolkit().getImage(imageURL);
         return img;
     }
 
-    public BufferedImage cd() throws IOException {
-        String fullDirectory = directory + "\\src\\assets\\cd50.png";
-        if (OS.startsWith("mac")) {
-            fullDirectory = directory + "/src/assets/cd50.png";
-        }
-        BufferedImage img = ImageIO.read(new File(fullDirectory));
+    public Image cd() throws IOException {
+
+        URL imageURL = getClass().getResource("/assets/cd50.png");
+        Image img = Toolkit.getDefaultToolkit().getImage(imageURL);
         return img;
     }
 }

@@ -10,11 +10,9 @@ import game.Player;
 import game.Tile;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,7 +62,7 @@ public class ConsoleCowboy extends JFrame implements ActionListener {
         } catch (IOException ex) {
             Logger.getLogger(ConsoleCowboy.class.getName()).log(Level.SEVERE, null, ex);
         }
-        playerPane.setPreferredSize(new Dimension(500,75));
+        playerPane.setPreferredSize(new Dimension(500, 75));
         playerPane.add(background);
         setLayout(new BorderLayout());
         JLabel nameLabel = new JLabel("Name", JLabel.CENTER);

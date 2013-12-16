@@ -3,18 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package game;
 
 /**
  * Model class of a Player object
- * 
- * @author 
+ *
+ * @author
  */
 public class Player {
-    
 
-    
     private String name;
     private int score;
     private int bestCombo;
@@ -58,6 +55,5 @@ public class Player {
     public void setMovesRemaining(int movesRemaining) {
         this.movesRemaining = movesRemaining;
     }
-    
-    
+
 }

@@ -6,18 +6,16 @@
 package game;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JPanel;
 
 /**
- * Manages a matrix of tile objects that acts as the game board
- * Handles board setup and game logic
- * 
- * @author 
+ * Manages a matrix of tile objects that acts as the game board Handles board
+ * setup and game logic
+ *
+ * @author
  */
 public class Board {
 
@@ -39,11 +37,9 @@ public class Board {
         populateBoard();
     }
 
-   
-
     /**
-     * Populates the board for initial setup
-     * Trashes the board until one is generated with no matches present
+     * Populates the board for initial setup Trashes the board until one is
+     * generated with no matches present
      */
     private void populateBoard() {
 
@@ -61,9 +57,10 @@ public class Board {
         }
         isSetup = true;
     }
-    
+
     /**
      * Populates empty tiles with a new random game piece
+     *
      * @return Returns true if there were empty tiles to populate
      */
     private boolean populateEmptyTiles() {
@@ -79,26 +76,28 @@ public class Board {
 
                 populated = true;
             } else {
-                
+
             }
         }
-        if(detectMatches()) {
+        if (detectMatches()) {
             populateEmptyTiles();
         }
         return populated;
     }
-    
+
     /**
      * Removes an individual tile from the game board
+     *
      * @param x coordinate of tile to remove
      * @param y coordinate of tile to remove
      */
     public void remove(int x, int y) {
         tiles[x * width + y].setGamePiece(null);
     }
-    
+
     /**
      * Removes a set of tiles from the game board
+     *
      * @param tilesToRemove list of tiles to remove
      */
     public void removeMultiple(ArrayList<Tile> tilesToRemove) {
@@ -110,22 +109,23 @@ public class Board {
             }
         }
     }
+
     /**
      * Iterates through each column of the board and swaps until the base case
-     * 
+     *
      * @param count Tracks the recursion
      */
     private void dropTiles() {
         boolean tilesDropped = false;
         for (int i = tiles.length - 1; i >= 8; i--) {
             Tile tileToCheck = tiles[i];
-            
+
             if (tileToCheck.getGamePiece().getPieceType().equals("blank")) {
-                if(!(tiles[i].getGamePiece().getPieceType().equals("blank") &&
-                        tiles[i-8].getGamePiece().getPieceType().equals("blank"))){
+                if (!(tiles[i].getGamePiece().getPieceType().equals("blank")
+                        && tiles[i - 8].getGamePiece().getPieceType().equals("blank"))) {
                     swap(tiles[i], tiles[i - 8]);
 //                    repaint();
-                    
+
                     tilesDropped = true;
                 }
             }
@@ -134,9 +134,11 @@ public class Board {
             dropTiles();
         }
     }
+
     /**
-     * Swaps two tiles and then checks if the swap created a match
-     * Removes focus from the swapped tiles
+     * Swaps two tiles and then checks if the swap created a match Removes focus
+     * from the swapped tiles
+     *
      * @param selectedPiece tile in focus
      * @param targetPiece tile to swap with
      */
@@ -169,11 +171,13 @@ public class Board {
 
         }
     }
+
     /**
      * Checks adjacency in the matrix and validates the swap
+     *
      * @param origin tile in focus to begin check
      * @param target tile attempting to be swapped
-     * @return 
+     * @return
      */
     public boolean validSwap(Tile origin, Tile target) {
         int ox = origin.x;
@@ -193,8 +197,10 @@ public class Board {
             return false;
         }
     }
+
     /**
      * Puts the selected tile in focus and provides user feedback
+     *
      * @param x coordinate of tile to select
      * @param y coordinate of tile to select
      */
@@ -203,8 +209,10 @@ public class Board {
         selectedTile = tiles[pos];
         tiles[pos].setBackground(Color.GREEN);
     }
+
     /**
      * Removes the selected tile from focus and provides user feedback
+     *
      * @param x coordinate of tile to deselect
      * @param y coordinate of tile to deselect
      */
@@ -213,9 +221,11 @@ public class Board {
         selectedTile = null;
         tiles[pos].setBackground(Color.BLACK);
     }
+
     /**
      * Maintains a list of the total set of valid matches horizontally and
      * vertically and populates the board when finished
+     *
      * @return true if matches are found
      */
     public boolean detectMatches() {
@@ -229,7 +239,7 @@ public class Board {
         } else {
             hasMatches = true;
             removeMultiple(matches);
-            
+
             if (isSetup) {
                 dropTiles();
                 populateEmptyTiles();
@@ -238,8 +248,10 @@ public class Board {
             return hasMatches;
         }
     }
+
     /**
      * Iterates through column 0-5 and checks for sets of 3 or 4 matching tiles
+     *
      * @return list of valid matches
      */
     public ArrayList<Tile> checkVerticalMatches() {
@@ -296,8 +308,10 @@ public class Board {
         }
         return matches;
     }
+
     /**
      * Iterates through rows 0-5 and checks for sets of 3 or 4 valid matches
+     *
      * @return list of valid matches
      */
     public ArrayList<Tile> checkHorizontalMatches() {
@@ -383,6 +397,7 @@ public class Board {
     public Tile[] getTiles() {
         return tiles;
     }
+
     public Player getPlayer() {
         return player;
     }
