@@ -15,6 +15,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 
+
 /**
  *
  * @author Brandon
@@ -51,8 +52,5 @@ public class ConsoleCowboy extends JFrame implements ActionListener{
         repaint();
         
     }
-    public static void main(String[] args){
-        ConsoleCowboy session = new ConsoleCowboy();
-    }
-    
+
 }
