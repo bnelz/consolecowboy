@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package consolecowboy;
+package views;
 
 import game.Board;
 import game.Tile;

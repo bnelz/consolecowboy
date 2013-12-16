@@ -5,8 +5,6 @@
  */
 package views;
 
-import consolecowboy.ConsoleCowboy;
-
 /**
  *
  * @author
