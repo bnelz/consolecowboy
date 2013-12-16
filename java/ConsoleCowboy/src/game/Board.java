@@ -6,6 +6,7 @@
 package game;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -24,6 +25,7 @@ public class Board extends JPanel {
     public final int width = 8;
     public final int height = 8;
     private Tile[] tiles;
+    private Player player;
     private boolean isSetup = false; // Tracks initial setup
 
     // This is a board state to track whether the user has a tile selected
@@ -33,6 +35,7 @@ public class Board extends JPanel {
     public Board() {
         this.tiles = new Tile[width * height];
         this.tileSelected = false;
+        this.player = new Player("Dave");
         populateBoard();
     }
 

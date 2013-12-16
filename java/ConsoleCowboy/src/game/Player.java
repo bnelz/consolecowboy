@@ -7,10 +7,13 @@
 package game;
 
 /**
- *
- * @author Brandon
+ * Model class of a Player object
+ * 
+ * @author 
  */
 public class Player {
+    
+
     
     private String name;
     private int score;
