@@ -33,14 +33,6 @@ public class Tile extends javax.swing.JButton implements MouseListener{
         pos = y * board.width + x;
         state = 0;
         this.isSelected = false;
-
-        /*
-         try {
-         chooseRandomTileType();
-         } catch (IOException ex) {
-         Logger.getLogger(Tile.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         */
         setPreferredSize(new Dimension(50, 50));
     }
 
@@ -50,16 +42,6 @@ public class Tile extends javax.swing.JButton implements MouseListener{
         this.gamePiece = gamePiece;
         this.board = board;
         addMouseListener(this);
-        /*
-         addMouseListener(new MouseAdapter()
-         {
-
-         @Override
-         public void mousePressed(MouseEvent e) {
-         Tile.board.selectTile(x, y);
-         }
-         });
-         */
         setIcon(new ImageIcon(gamePiece.getImage()));
         setPreferredSize(new Dimension(50, 50));
     }
@@ -79,43 +61,6 @@ public class Tile extends javax.swing.JButton implements MouseListener{
         }
     }
 
-    /*
-     private void chooseRandomTileType() throws IOException {
-     int rand = ((int)(Math.random() * 6));
-     switch(rand){
-     case 0:
-     // cmd
-     setIcon(new ImageIcon(ImageIO.read(new File("C:\\Users\\Brandon\\Documents\\NetBeansProjects\\ConsoleCowboy\\src\\assets\\cmd.png"))));
-     break;  
-     case 1:
-     // CD
-     setIcon(new ImageIcon(ImageIO.read(new File("C:\\Users\\Brandon\\Documents\\NetBeansProjects\\ConsoleCowboy\\src\\assets\\cd.png"))));
-     break;
-     case 2:
-     // Netscape
-     setIcon(new ImageIcon(ImageIO.read(new File("C:\\Users\\Brandon\\Documents\\NetBeansProjects\\ConsoleCowboy\\src\\assets\\netscape.png"))));
-     break;
-     case 3:
-     // Floppy
-     setIcon(new ImageIcon(ImageIO.read(new File("C:\\Users\\Brandon\\Documents\\NetBeansProjects\\ConsoleCowboy\\src\\assets\\floppy.png"))));
-     break;
-     case 4:
-     // AOL
-     setIcon(new ImageIcon(ImageIO.read(new File("C:\\Users\\Brandon\\Documents\\NetBeansProjects\\ConsoleCowboy\\src\\assets\\aol.png"))));
-     break;
-     case 5:
-     // Java
-     setIcon(new ImageIcon(ImageIO.read(new File("C:\\Users\\Brandon\\Documents\\NetBeansProjects\\ConsoleCowboy\\src\\assets\\java.png"))));
-     break;
-     default:
-     // cmd
-     setIcon(new ImageIcon(ImageIO.read(new File("C:\\Users\\Brandon\\Documents\\NetBeansProjects\\ConsoleCowboy\\src\\assets\\cmd.png"))));
-     break;
-            
-     }
-     }
-    
-     */
     public GamePiece getGamePiece() {
         return gamePiece;
     }

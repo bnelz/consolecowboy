@@ -19,7 +19,7 @@ import javax.swing.JPanel;
  * 
  * @author 
  */
-public class Board extends JPanel {
+public class Board {
 
     // Always play with an 8x8 board
     public final int width = 8;
@@ -38,6 +38,8 @@ public class Board extends JPanel {
         this.player = new Player("Dave");
         populateBoard();
     }
+
+   
 
     /**
      * Populates the board for initial setup
@@ -122,7 +124,7 @@ public class Board extends JPanel {
                 if(!(tiles[i].getGamePiece().getPieceType().equals("blank") &&
                         tiles[i-8].getGamePiece().getPieceType().equals("blank"))){
                     swap(tiles[i], tiles[i - 8]);
-                    repaint();
+//                    repaint();
                     
                     tilesDropped = true;
                 }
@@ -164,7 +166,6 @@ public class Board extends JPanel {
             tiles[spos].setIsSelected(false);
             tiles[tpos].setIsSelected(false);
             detectMatches();
-            repaint();
 
         }
     }
@@ -381,6 +382,9 @@ public class Board extends JPanel {
 
     public Tile[] getTiles() {
         return tiles;
+    }
+    public Player getPlayer() {
+        return player;
     }
 
 }

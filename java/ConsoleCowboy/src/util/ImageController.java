@@ -11,13 +11,23 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- *
- * @author Brandon
+ * Manages image IO on the user machine based on OS type
+ * @author 
  */
 public class ImageController {
 
     String directory = System.getProperty("user.dir");
     String OS = System.getProperty("os.name").toLowerCase();
+    
+    public BufferedImage background() throws IOException {
+        
+        String fullDirectory = directory + "\\src\\assets\\background.png";
+        if (OS.startsWith("mac")) {
+            fullDirectory = directory + "/src/assets/background.png";
+        }
+        BufferedImage img = ImageIO.read(new File(fullDirectory));
+        return img;
+    }
 
     public BufferedImage cmd() throws IOException {
         String fullDirectory = directory + "\\src\\assets\\cmd50.png";
