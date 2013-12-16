@@ -8,14 +8,15 @@ package game;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
- *
- * @author Brandon
+ * Manages a matrix of tile objects that acts as the game board
+ * Handles board setup and game logic
+ * 
+ * @author 
  */
 public class Board extends JPanel {
 
@@ -23,7 +24,7 @@ public class Board extends JPanel {
     public final int width = 8;
     public final int height = 8;
     private Tile[] tiles;
-    private boolean isSetup = false;
+    private boolean isSetup = false; // Tracks initial setup
 
     // This is a board state to track whether the user has a tile selected
     public boolean tileSelected;
@@ -35,6 +36,10 @@ public class Board extends JPanel {
         populateBoard();
     }
 
+    /**
+     * Populates the board for initial setup
+     * Trashes the board until one is generated with no matches present
+     */
     private void populateBoard() {
 
         for (int i = 0; i < tiles.length; i++) {
@@ -51,8 +56,13 @@ public class Board extends JPanel {
         }
         isSetup = true;
     }
-
-    private void populateEmptyTiles() {
+    
+    /**
+     * Populates empty tiles with a new random game piece
+     * @return Returns true if there were empty tiles to populate
+     */
+    private boolean populateEmptyTiles() {
+        boolean populated = false;
         for (int i = 0; i < tiles.length; i++) {
             if (tiles[i].getGamePiece().getPieceType().equals("blank")) {
                 try {
@@ -61,17 +71,31 @@ public class Board extends JPanel {
                 } catch (IOException ex) {
                     Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
+                populated = true;
+            } else {
+                
             }
         }
         if(detectMatches()) {
             populateEmptyTiles();
         }
+        return populated;
     }
-
+    
+    /**
+     * Removes an individual tile from the game board
+     * @param x coordinate of tile to remove
+     * @param y coordinate of tile to remove
+     */
     public void remove(int x, int y) {
         tiles[x * width + y].setGamePiece(null);
     }
-
+    
+    /**
+     * Removes a set of tiles from the game board
+     * @param tilesToRemove list of tiles to remove
+     */
     public void removeMultiple(ArrayList<Tile> tilesToRemove) {
         if (!tilesToRemove.isEmpty()) {
             for (int i = 0; i < tilesToRemove.size(); i++) {
@@ -81,11 +105,13 @@ public class Board extends JPanel {
             }
         }
     }
-
-    private void dropTiles(int count) {
+    /**
+     * Iterates through each column of the board and swaps until the base case
+     * 
+     * @param count Tracks the recursion
+     */
+    private void dropTiles() {
         boolean tilesDropped = false;
-        count++;
-        System.out.println(count);
         for (int i = tiles.length - 1; i >= 8; i--) {
             Tile tileToCheck = tiles[i];
             
@@ -100,10 +126,15 @@ public class Board extends JPanel {
             }
         }
         if (tilesDropped) {
-            dropTiles(count);
+            dropTiles();
         }
     }
-
+    /**
+     * Swaps two tiles and then checks if the swap created a match
+     * Removes focus from the swapped tiles
+     * @param selectedPiece tile in focus
+     * @param targetPiece tile to swap with
+     */
     public void swap(Tile selectedPiece, Tile targetPiece) {
 
         /*
@@ -134,7 +165,12 @@ public class Board extends JPanel {
 
         }
     }
-
+    /**
+     * Checks adjacency in the matrix and validates the swap
+     * @param origin tile in focus to begin check
+     * @param target tile attempting to be swapped
+     * @return 
+     */
     public boolean validSwap(Tile origin, Tile target) {
         int ox = origin.x;
         int oy = origin.y;
@@ -153,19 +189,31 @@ public class Board extends JPanel {
             return false;
         }
     }
-
+    /**
+     * Puts the selected tile in focus and provides user feedback
+     * @param x coordinate of tile to select
+     * @param y coordinate of tile to select
+     */
     public void selectTile(int x, int y) {
         int pos = y * width + x;
         selectedTile = tiles[pos];
         tiles[pos].setBackground(Color.GREEN);
     }
-
+    /**
+     * Removes the selected tile from focus and provides user feedback
+     * @param x coordinate of tile to deselect
+     * @param y coordinate of tile to deselect
+     */
     public void deSelectTile(int x, int y) {
         int pos = y * width + x;
         selectedTile = null;
         tiles[pos].setBackground(Color.BLACK);
     }
-
+    /**
+     * Maintains a list of the total set of valid matches horizontally and
+     * vertically and populates the board when finished
+     * @return true if matches are found
+     */
     public boolean detectMatches() {
         boolean hasMatches;
         ArrayList<Tile> matches = new ArrayList<>();
@@ -179,14 +227,17 @@ public class Board extends JPanel {
             removeMultiple(matches);
             
             if (isSetup) {
-                dropTiles(0);
+                dropTiles();
                 populateEmptyTiles();
             }
             populateEmptyTiles();
             return hasMatches;
         }
     }
-
+    /**
+     * Iterates through column 0-5 and checks for sets of 3 or 4 matching tiles
+     * @return list of valid matches
+     */
     public ArrayList<Tile> checkVerticalMatches() {
         // Check vertical matches
         ArrayList<Tile> matches = new ArrayList<>();
@@ -241,7 +292,10 @@ public class Board extends JPanel {
         }
         return matches;
     }
-
+    /**
+     * Iterates through rows 0-5 and checks for sets of 3 or 4 valid matches
+     * @return list of valid matches
+     */
     public ArrayList<Tile> checkHorizontalMatches() {
         // Check horizontal matches
         ArrayList<Tile> matches = new ArrayList<>();

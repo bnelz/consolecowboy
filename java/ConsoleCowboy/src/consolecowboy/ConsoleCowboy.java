@@ -8,6 +8,7 @@ package consolecowboy;
 
 import game.Board;
 import game.Tile;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,8 +16,8 @@ import javax.swing.JFrame;
 
 
 /**
- *
- * @author Brandon
+ * The main game frame that displays the match 3 board
+ * @author 
  */
 public class ConsoleCowboy extends JFrame implements ActionListener{
 
@@ -26,6 +27,7 @@ public class ConsoleCowboy extends JFrame implements ActionListener{
     private Board board;
     
     public ConsoleCowboy(){
+        setPreferredSize(new Dimension(500,500));
         board = new Board();
         init();
     }
@@ -33,7 +35,10 @@ public class ConsoleCowboy extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    /**
+     * Sets up the play area and adds the tiles to the Grid Layout
+     */
     private void init() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);

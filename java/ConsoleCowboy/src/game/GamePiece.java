@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package game;
 
 import java.awt.image.BufferedImage;
@@ -11,11 +10,11 @@ import java.io.IOException;
 import util.ImageController;
 
 /**
- *
+ * Model of a game piece
  * @author Brandon
  */
 public class GamePiece {
-    
+
     private BufferedImage image;
     private String pieceType;
 
@@ -23,14 +22,21 @@ public class GamePiece {
         this.image = image;
         this.pieceType = pieceType;
     }
-    public GamePiece(GamePiece piece){
+
+    public GamePiece(GamePiece piece) {
         this.image = piece.image;
         this.pieceType = piece.pieceType;
     }
+
+    /**
+     * Constructs a GamePiece object with a random image and type representation
+     *
+     * @throws IOException
+     */
     public GamePiece() throws IOException {
         ImageController ic = new ImageController();
-        int rand = ((int)(Math.random() * 6));
-        switch(rand){
+        int rand = ((int) (Math.random() * 6));
+        switch (rand) {
             case 0:
                 image = ic.cmd();
                 pieceType = "cmd";
@@ -58,7 +64,7 @@ public class GamePiece {
             default:
                 image = ic.cmd();
                 pieceType = "cmd";
-                break;      
+                break;
         }
     }
 
@@ -74,9 +80,4 @@ public class GamePiece {
         return pieceType;
     }
 
-
-
-    
-    
-    
 }

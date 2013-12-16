@@ -1,3 +1,6 @@
 *.class
 /ConsoleCowboy/build/
+/ConsoleCowboy/build/classes/consolecowboy/
+/ConsoleCowboy/build/classes/game/
+ConsoleCowboy/build/classes/util/
 /ConsoleCowboy/nbproject/private/
