@@ -37,7 +37,7 @@ public class mainMenu extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/floppy50.png"))); // NOI18N
         jButton1.setText("PLAY");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -46,7 +46,7 @@ public class mainMenu extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(0, 0, 0));
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/aol50.png"))); // NOI18N
         jButton2.setText("EXIT");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
